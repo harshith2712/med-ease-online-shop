@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom medicine store theme colors
+				medBlue: {
+					light: '#64B5F6',
+					DEFAULT: '#1E88E5',
+					dark: '#1565C0',
+				},
+				medGreen: {
+					light: '#81C784',
+					DEFAULT: '#4CAF50',
+					dark: '#2E7D32',
 				}
 			},
 			borderRadius: {
