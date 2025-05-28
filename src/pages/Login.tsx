@@ -1,10 +1,10 @@
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -12,11 +12,39 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  // Temporary hardcoded credentials for testing
+  const validCredentials = {
+    username: "admin",
+    password: "password123"
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login logic
+    setIsLoading(true);
+    
     console.log("Login attempt:", { username, password });
+    
+    // Simulate login delay
+    setTimeout(() => {
+      if (username === validCredentials.username && password === validCredentials.password) {
+        toast({
+          title: "Login Successful",
+          description: "Welcome back!",
+        });
+        navigate("/account");
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "Invalid username or password. Try: admin / password123",
+          variant: "destructive",
+        });
+      }
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -32,6 +60,11 @@ const Login = () => {
               </div>
               <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
               <p className="text-gray-600">Sign in to your account</p>
+              <div className="mt-2 p-2 bg-blue-50 rounded text-sm text-blue-700">
+                <p className="font-medium">Test Credentials:</p>
+                <p>Username: <code>admin</code></p>
+                <p>Password: <code>password123</code></p>
+              </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -74,8 +107,12 @@ const Login = () => {
                 </Link>
               </div>
 
-              <Button type="submit" className="w-full bg-medBlue hover:bg-medBlue-dark">
-                Sign In
+              <Button 
+                type="submit" 
+                className="w-full bg-medBlue hover:bg-medBlue-dark"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
