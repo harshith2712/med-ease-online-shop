@@ -10,13 +10,13 @@ import Footer from "@/components/Footer";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement login logic
-    console.log("Login attempt:", { email, password });
+    console.log("Login attempt:", { username, password });
   };
 
   return (
@@ -36,13 +36,13 @@ const Login = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
                   required
                 />
               </div>
